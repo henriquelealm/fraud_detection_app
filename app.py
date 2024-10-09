@@ -25,6 +25,9 @@ with open('scaler.pkl', 'rb') as scaler_file:
 # Lista para armazenar transações suspeitas
 alerts = []
 
+# Lista para armazenar todas as transações geradas
+transactions = []
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -50,6 +53,9 @@ def index():
             predictions = model.predict(X)
             synthetic_df['Model_Prediction'] = predictions
             
+            # Adicionar transações ao histórico
+            transactions.extend(synthetic_df.to_dict(orient='records'))
+            
             # Filtrar transações fraudulentas
             fraudulent_transactions = synthetic_df[synthetic_df['Model_Prediction'] == 1][['Time', 'Amount']].to_dict(orient='records')
             alerts.extend(fraudulent_transactions)
@@ -65,6 +71,24 @@ def index():
 @app.route('/alerts')
 def view_alerts():
     return render_template('alerts.html', alerts=alerts)
+
+@app.route('/dashboard')
+def dashboard():
+    # Contagem total de transações e fraudes
+    total_transactions = len(transactions)
+    fraud_transactions = sum(1 for t in transactions if t['Model_Prediction'] == 1)
+    
+    # Preparar dados para o gráfico de Amount e Time
+    time_values = [t['Time'] for t in transactions]
+    amount_values = [t['Amount'] for t in transactions]
+    
+    return render_template(
+        'dashboard.html', 
+        total_transactions=total_transactions,
+        fraud_transactions=fraud_transactions,
+        time_values=time_values,
+        amount_values=amount_values
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)

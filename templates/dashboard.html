@@ -1,0 +1,182 @@
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard de Fraudes Bancárias</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            /* Estilos da página do Dashboard */
+            
+            body {
+                background-color: #f8f9fa;
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            h1 {
+                margin-top: 20px;
+                color: #343a40;
+                font-size: 2.5em;
+                text-align: center;
+            }
+
+            .container {
+                margin-top: 30px;
+            }
+
+            /* Estilizando os gráficos com cards */
+            .chart-container {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .chart-box {
+                flex: 1 1 45%; /* Permitir que o gráfico ocupe até 45% do container */
+                background-color: #fff;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+                height: 400px; /* Altura padrão */
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .chart-box h2 {
+                font-size: 1.5em;
+                color: #343a40;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            canvas {
+                max-width: 100%;
+                max-height: 300px; /* Limitar a altura do gráfico */
+                height: auto;
+            }
+
+            .navbar {
+                margin-bottom: 20px;
+            }
+
+            .dashboard-header {
+                text-align: center;
+                margin-bottom: 40px;
+            }
+
+            .dashboard-header p {
+                font-size: 1.2em;
+                color: #6c757d;
+            }
+
+            @media (max-width: 768px) {
+                .chart-box {
+                    flex: 1 1 100%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Barra de Navegação -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Fraud Detection</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/alerts">Alertas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard">Dashboard</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Dashboard de Detecção de Fraudes</h1>
+                <p>Acompanhe as transações detectadas e visualize as fraudes identificadas em tempo real.</p>
+            </div>
+
+            <!-- Gráficos em Cards -->
+            <div class="chart-container">
+                <div class="chart-box">
+                    <h2>Proporção de Transações Fraudulentas</h2>
+                    <canvas id="fraudPieChart"></canvas>
+                </div>
+
+                <div class="chart-box">
+                    <h2>Time vs Amount (em Dólares)</h2>
+                    <canvas id="timeAmountLineChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            // Gráfico de Pizza - Proporção de Fraudes
+            const fraudData = {
+                labels: ['Legítimas', 'Fraudulentas'],
+                datasets: [{
+                    label: 'Transações',
+                    data: [{{ total_transactions - fraud_transactions }}, {{ fraud_transactions }}],
+                    backgroundColor: ['#36a2eb', '#ff6384'],
+                    hoverOffset: 4
+                }]
+            };
+            
+            const configPie = {
+                type: 'pie',
+                data: fraudData
+            };
+            
+            const fraudPieChart = new Chart(
+                document.getElementById('fraudPieChart'),
+                configPie
+            );
+
+            // Gráfico de Linha - Time vs Amount
+            const timeValues = {{ time_values | safe }};
+            const amountValues = {{ amount_values | safe }};
+            
+            const timeAmountData = {
+                labels: timeValues,
+                datasets: [{
+                    label: 'Amount (em Dólares)',
+                    data: amountValues,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            };
+
+            const configLine = {
+                type: 'line',
+                data: timeAmountData
+            };
+
+            const timeAmountLineChart = new Chart(
+                document.getElementById('timeAmountLineChart'),
+                configLine
+            );
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>

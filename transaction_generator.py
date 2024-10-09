@@ -140,5 +140,6 @@ def generate_transactions(n_fraud, n_legit, csv_path='fraud_examples.csv'):
     
     # Adicionar a coluna 'Class' original
     synthetic_df['Class'] = synthetic_df['Class']
+
     
     return synthetic_df
