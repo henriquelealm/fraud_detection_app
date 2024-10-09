@@ -1,0 +1,42 @@
+<!-- templates/generate.html -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerar Transações</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .container {
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Gerar Transações Sintéticas</h2>
+        <p>Insira a quantidade de transações que deseja gerar. 10% delas serão fraudulentas.</p>
+        
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="n_transactions">Número de Transações:</label>
+                <input type="number" class="form-control" id="n_transactions" name="n_transactions" min="1" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Gerar</button>
+        </form>
+        
+        <br>
+        <a href="{{ url_for('home') }}">Voltar para a página inicial</a>
+    </div>
+</body>
+</html>

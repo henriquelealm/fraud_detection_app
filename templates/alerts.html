@@ -1,0 +1,28 @@
+<!-- templates/alerts.html -->
+
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Alertas de Fraude</h2>
+{% if alerts %}
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Time</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tx in alerts %}
+        <tr>
+            <td>{{ "%.2f"|format(tx['Time']) }}</td>
+            <td>{{ "%.2f"|format(tx['Amount']) }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Nenhuma transação suspeita detectada até o momento.</p>
+{% endif %}
+<a href="/" class="btn btn-secondary">Voltar à Página Inicial</a>
+{% endblock %}

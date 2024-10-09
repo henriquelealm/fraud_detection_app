@@ -1,0 +1,22 @@
+<!-- templates/index.html -->
+
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Gerar Transações</h2>
+<form method="POST" action="/">
+    <div class="mb-3">
+        <label for="quantity" class="form-label">Quantidade de Transações</label>
+        <input type="number" class="form-control" id="quantity" name="quantity" min="1" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Gerar</button>
+</form>
+
+{% if error %}
+<div class="mt-4">
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+</div>
+{% endif %}
+{% endblock %}
