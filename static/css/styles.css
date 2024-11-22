@@ -1,75 +1,116 @@
 /* static/css/styles.css */
 
 body {
-    background-color: #f8f9fa;
+  background-color: #f8f9fa;
 }
 
 h2 {
-    margin-bottom: 20px;
-    color: #343a40;
+  margin-bottom: 20px;
+  color: #343a40;
 }
 
 .table {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .alert {
-    font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 .btn {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .badge {
-    font-size: 100%;
+  font-size: 100%;
 }
 
 /* static/css/styles.css */
 
 body {
-    background-color: #f8f9fa;
-    font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
 }
 
 h1 {
-    margin-top: 20px;
-    color: #007bff;
-    font-size: 2.5em;
-    text-align: center;
+  margin-top: 20px;
+  color: #0a0a0a;
+  font-size: 2.5em;
+  text-align: center;
 }
 
 h2 {
-    margin-bottom: 20px;
-    color: #343a40;
-    text-align: center;
+  margin-bottom: 20px;
+  color: #0b0b0b;
+  text-align: center;
 }
 
 .container {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .alert {
-    font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 .btn {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .badge {
-    font-size: 100%;
+  font-size: 100%;
 }
 
 /* Estilos para o dashboard */
 canvas {
-    margin-top: 40px;
-    max-width: 100%;
-    height: auto;
+  margin-top: 40px;
+  max-width: 100%;
+  height: auto;
 }
 
-#fraudPieChart, #timeAmountLineChart {
-    margin: 0 auto;
-    display: block;
-    width: 80%;
+#fraudPieChart,
+#timeAmountLineChart {
+  margin: 0 auto;
+  display: block;
+  width: 80%;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body > .container {
+  flex: 1;
+}
+
+footer {
+  background-color: #343a40; /* Cor escura do Bootstrap */
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+/* Botão verde bandeira */
+.btn-green {
+  background-color: #008000;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.25rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-green:hover {
+  background-color: #006600; /* Verde mais escuro ao passar o mouse */
+}
+
+.btn-green:active {
+  background-color: #004d00; /* Verde ainda mais escuro ao clicar */
 }

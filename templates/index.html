@@ -1,5 +1,3 @@
-<!-- templates/index.html -->
-
 {% extends "layout.html" %}
 
 {% block content %}
@@ -9,7 +7,8 @@
         <label for="quantity" class="form-label">Quantidade de Transações</label>
         <input type="number" class="form-control" id="quantity" name="quantity" min="1" required>
     </div>
-    <button type="submit" class="btn btn-primary">Gerar</button>
+    <!-- Botão com classe customizada -->
+    <button type="submit" class="btn btn-green">Gerar</button>
 </form>
 
 {% if error %}
@@ -19,6 +18,5 @@
     </div>
 </div>
 {% endif %}
-
 
 {% endblock %}
